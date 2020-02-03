@@ -37,8 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function players()
+    {
+        return $this->hasMany(Player::class);
+    }
+
     public function volunteerevents()
     {
-        return $this->hasMany(VolunteerEvent::class);
+        return $this->morphMany(VolunteerEvent::class, 'volunteereventable');
     }
 }

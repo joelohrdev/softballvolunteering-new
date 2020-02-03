@@ -19,9 +19,9 @@ class VolunteerEvent extends Model
         'notes'
     ];
 
-    public function user()
+    public function volunteereventable()
     {
-        return $this->belongsTo(User::class);
+        return $this->morphTo();
     }
 
     public function volunteercategory()

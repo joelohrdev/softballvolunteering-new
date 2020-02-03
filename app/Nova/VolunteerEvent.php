@@ -7,9 +7,11 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use MichielKempen\NovaPolymorphicField\PolymorphicField;
 
 class VolunteerEvent extends Resource
 {
@@ -46,12 +48,15 @@ class VolunteerEvent extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('User')->nullable(),
+            MorphTo::make('Choose Parent or Player', 'Volunteereventable')->types([
+                User::class,
+                Player::class,
+            ])->nullable(),
             BelongsTo::make('Category', 'volunteercategory', 'App\Nova\VolunteerCategory'),
             Text::make('Name'),
             DateTime::make('Date and Time', 'date_time'),
             Textarea::make('Details')->nullable(),
-            Boolean::make('Attended')->nullable(),
+            Boolean::make('Attended')->nullable()->trueValue('Attended')->falseValue('Did Not Attend'),
             Textarea::make('Notes')->nullable(),
         ];
     }

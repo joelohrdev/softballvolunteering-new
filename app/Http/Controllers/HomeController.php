@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Player;
+use App\User;
 use App\VolunteerEvent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,8 +28,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $players = Player::get()->where('user_id', '=', Auth::user()->id);
         $bookedEvents = VolunteerEvent::orderBy('date_time', 'Asc')->whereDate('date_time', '>=', Carbon::now())->get()->where('user_id', '=', Auth::user()->id);
-        $pastEvents = VolunteerEvent::orderBy('date_time', 'Asc')->whereDate('date_time', '<', Carbon::now())->get()->where('user_id', '=', Auth::user()->id);
-        return view('home', compact('bookedEvents', 'pastEvents'));
+        $pastEvents = VolunteerEvent::orderBy('date_time', 'DESC')->whereDate('date_time', '<', Carbon::now())->get()->where('user_id', '=', Auth::user()->id);
+        return view('home', compact('bookedEvents', 'pastEvents', 'players'));
     }
 }

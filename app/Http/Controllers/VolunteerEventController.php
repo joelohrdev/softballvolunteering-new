@@ -14,7 +14,8 @@ class VolunteerEventController extends Controller
      */
     public function index()
     {
-        //
+        $upcomingEvents = VolunteerEvent::get()->where('user_id', '==', '');
+        return view('volunteer.index', compact('upcomingEvents'));
     }
 
     /**
