@@ -21,7 +21,7 @@ class CreateVolunteerEventsTable extends Migration
             $table->string('name');
             $table->dateTime('date_time');
             $table->text('details')->nullable();
-            $table->boolean('attended')->nullable();
+            $table->string('attended')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });
