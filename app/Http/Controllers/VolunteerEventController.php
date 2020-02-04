@@ -14,7 +14,8 @@ class VolunteerEventController extends Controller
      */
     public function index()
     {
-        //
+        $events = VolunteerEvent::get()->where('volunteereventable', '=', null);
+        return view('volunteerevent.index', compact('events'));
     }
 
     /**
@@ -55,9 +56,10 @@ class VolunteerEventController extends Controller
      * @param  \App\VolunteerEvent  $volunteerEvent
      * @return \Illuminate\Http\Response
      */
-    public function edit(VolunteerEvent $volunteerEvent)
+    public function edit(VolunteerEvent $volunteerEven, $id)
     {
-        //
+        $event = VolunteerEvent::findOrFail($id);
+        return view('volunteerevent.edit', compact('event'));
     }
 
     /**

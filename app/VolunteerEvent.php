@@ -8,6 +8,8 @@ class VolunteerEvent extends Model
 {
     protected $dates = [
         'date_time',
+        'created_at',
+        'updated_at',
     ];
 
     protected $fillable = [
@@ -19,9 +21,9 @@ class VolunteerEvent extends Model
         'notes'
     ];
 
-    public function user()
+    public function volunteereventable()
     {
-        return $this->belongsTo(User::class);
+        return $this->morphTo();
     }
 
     public function volunteercategory()
